@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flatiron Bank</title>
+</head>
+  <body>
+    <%= flash[:message] if flash.has?(:message) %>
+    <%= yield %>
+  </body>
+</html>
