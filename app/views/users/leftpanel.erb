@@ -5,14 +5,14 @@
   <h2>Your Groups</h2>
   <ul>
     <% @user.groups.each do |group| %>
-    <li><a href="/groups/<%= group.id %>"><%= group.groupname %></a></li>
+    <li><a href="/groups/<%= group.id %>"><%= group.groupname %></a> <%= @user.get_role(group) %></li>
     <% end %>
   </ul>
   <hr />
   <h2>Join Groups</h2>
-  <% if @groups %>
+  <% if @not_in_groups %>
   <ul>
-    <% @groups.each do |group| %>
+    <% @not_in_groups.each do |group| %>
     <li><a href="/groups/<%= group.id %>"><%= group.groupname %></a> | <a href="/groups/<%= group.id %>/join">Join</a></li>
     <% end %>
   </ul>

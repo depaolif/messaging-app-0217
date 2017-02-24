@@ -1,11 +1,10 @@
 <div class="messages">
   <ul>
     <% @group.messages.each do |message| %>
-    <% if message.user.username == @user.username %>
-    <li class="user_message">
-    <% else %>
-    <li>
-    <% end %><%= message.user.username %>: <%= message.themessage %></li>
+      <% buildclass="message" %>
+      <% buildclass+=" user_message" if message.user.username == @user.username %>
+      <% buildclass+=" admin_message" if message.user.username == @group.get_admin.username%>
+      <li class="<%= buildclass %>"><%= message.user.username %>: <%= message.themessage %></li>
     <% end %>
   </ul>
 </div>

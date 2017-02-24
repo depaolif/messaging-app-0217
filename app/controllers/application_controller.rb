@@ -24,12 +24,18 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/signup" do
-    #your code here
     user = User.new(params)
     if !user.username.empty? && user.save
-      redirect '/users'
+      flash[:message] = "Sign up successful, please log-in to view your account!"
+      redirect '/'
     else
-      flash[:message]="Sign up failed"
+      if user.password.nil?
+        flash[:message]="Please choose a password"
+      elsif user.username.empty?
+        flash[:message]="Please choose a username"
+      else
+        flash[:message]="Username taken"
+      end
       redirect '/signup'
     end
   end

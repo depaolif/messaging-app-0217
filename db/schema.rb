@@ -22,7 +22,8 @@ ActiveRecord::Schema.define(version: 20170223203815) do
     t.integer "group_id"
   end
 
-  create_table "user_groups", force: :cascade do |t|
+  create_table "roles", force: :cascade do |t|
+    t.string  "role_type"
     t.integer "user_id"
     t.integer "group_id"
   end

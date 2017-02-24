@@ -2,27 +2,61 @@
 <div class="main">
   <h1><%= @group.groupname %></h1>
 
-  <% if @user.groups.include?(@group) %>
+  <% if @user.groups.include?(@group) && @user.get_role(@group) != "Kicked" %>
 
-  <h2>Users</h2>
-  <ul>
+<div class="users">
+  <div class="users-admin">
+    <h2>Admin</h2>
+    <p><%= @group.get_admin.username %></p>
+  </div>
+  <div class="users-members">
+    <h2>Members</h2>
+    <ul>
     <% @group.users.each do |user| %>
-      <li><%= user.username %></li>
+      <% if user.get_role(@group) == "Member" %>
+      <li>
+        <%= user.username %>
+        <% if @role =="Admin" && (@user != user) %>
+        <a href="/groups/<%= @group.id %>/user/<%= user.id %>/kick">boot</a>
+        <% end %>
+      </li>
+      <% end %>
     <% end %>
-  </ul>
+    </ul>
+  </div>
+  <% if @role == "Admin" %>
+  <h2>Kicked</h2>
+  <div class="users-kicked">
+    <ul>
+      <% @group.users.each do |user| %>
+      <% if user.get_role(@group) == "Kicked" %>
+      <li>
+        <%= user.username %>
+        <a href="/groups/<%= @group.id %>/user/<%= user.id %>/reinstate">reinstate</a>
+      </li>
+      <% end %>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+</div>
+
 
   <%= erb :'/messages/show' %>
-
+  <% if @role =="Admin" %>
   <form method="post" action="/groups/<%= @group.id %>/delete">
     <input id="hidden" type="hidden" name="_method" value="delete">
     <input type="submit" value="delete group" />
   </form>
-
+  <% else %>
   <form method="post" action="/groups/<%= @group.id %>/leave">
     <input id="hidden" type="hidden" name="_method" value="patch" />
     <input type="submit" value="leave group" />
   </form>
+  <% end %>
 
+  <% elsif @user.get_role(@group) == "Kicked" %>
+  <p>You were kicked out of this group.  Contact the <a href="/users/<%= @group.get_admin.id %>">administrator</a> for questions</p>
   <% else %>
   <p>You do not belong to this group.
     <a href="/groups/<%= @group.id %>/join">Click here to join.</a></p>

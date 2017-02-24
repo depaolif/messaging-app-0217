@@ -8,6 +8,7 @@
     padding: 0;
   }
   body{
+    background-color:#62a9db;
     margin: 0;
     padding: 0;
     font-family: Helvetica, Arial, sans-serif;
@@ -21,20 +22,38 @@
   h2{
     font-size: 18px;
   }
+
   .left{
     float: left;
     width: 300px;
-    padding: 10px;
+    padding: 15px;
+    background-color: #fff;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 90vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    border-radius: 30px;
   }
   .main{
     width:auto;
-    overflow:hidden;
-    padding: 10px;
+    overflow-y:hidden;
+    padding: 15px;
+    background-color: #fff;
+    position: relative;
+    margin-left: 1vw;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 90vh;
+    margin-right: 1vw;
+    border-radius: 30px;
   }
 
   .topbar {
     width: 100%;
     background-color: #eee;
+    top: 0px;
     margin: 0px;
     padding: 0px;
   }
@@ -49,7 +68,8 @@
   .container{
     margin:0;
     padding:0;
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
   }
   .messages ul{
     padding: 0px;
@@ -63,6 +83,37 @@
 
   .user_message{
     background-color: #eee;
+  }
+  .admin_message{
+    color: #800000;
+  }
+
+  #intro{
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 30px;
+  }
+  input, textarea {
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;
+    padding: 10px;
+    border: 1px solid #DDDDDD;
+  }
+
+  input:focus, textarea:focus {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    padding: 10px;
+    border: 1px solid rgba(81, 203, 238, 1);
   }
   </style>
 
