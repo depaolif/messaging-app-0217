@@ -13,9 +13,9 @@ gem 'rack-test'
 gem 'shotgun'
 gem 'pry'
 gem 'rack-flash3'
+gem 'pg'
 
 group :development do
-  gem 'pry'
   gem 'sqlite3'
   gem 'rspec'
   gem 'tux'
