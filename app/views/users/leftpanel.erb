@@ -1,0 +1,29 @@
+<div class="left">
+  <h1>Welcome, <%= @user.username %></h1>
+    <p><a href="/logout">Log Out</a></p>
+  <hr />
+  <h2>Your Groups</h2>
+  <ul>
+    <% @user.groups.each do |group| %>
+    <li><a href="/groups/<%= group.id %>"><%= group.groupname %></a></li>
+    <% end %>
+  </ul>
+  <hr />
+  <h2>Join Groups</h2>
+  <% if @groups %>
+  <ul>
+    <% @groups.each do |group| %>
+    <li><a href="/groups/<%= group.id %>"><%= group.groupname %></a> | <a href="/groups/<%= group.id %>/join">Join</a></li>
+    <% end %>
+  </ul>
+  <% end %>
+  <hr />
+  <h2>Create a Group</h2>
+<form method="post" action="/groups/new">
+  Name: <input type="text" name="group_name" />
+  <input type="submit" value="Create Group" />
+  <input type="hidden" id="hidden" name="user_id" value="<%= @user.id %>" />
+</form>
+  <hr />
+
+</div>

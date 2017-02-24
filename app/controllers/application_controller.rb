@@ -1,6 +1,7 @@
 require "./config/environment"
 require "./app/models/user"
 require "rack-flash"
+set :public_folder, File.dirname(__FILE__)
 class ApplicationController < Sinatra::Base
 
   configure do
@@ -11,7 +12,11 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    erb :index
+    if logged_in?
+      redirect '/users'
+    else
+      erb :index
+    end
   end
 
   get "/signup" do
@@ -61,6 +66,7 @@ class ApplicationController < Sinatra::Base
     def current_user
       User.find(session[:user_id])
     end
+
   end
 
 end

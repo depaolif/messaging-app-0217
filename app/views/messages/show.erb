@@ -1,0 +1,15 @@
+<div class="messages">
+  <ul>
+    <% @group.messages.each do |message| %>
+    <% if message.user.username == @user.username %>
+    <li class="user_message">
+    <% else %>
+    <li>
+    <% end %><%= message.user.username %>: <%= message.themessage %></li>
+    <% end %>
+  </ul>
+</div>
+<form method="post" action="/group/<%= @group.id %>/message">
+  <input type="text" name="message" />
+  <input type="submit" value="send" />
+</form>

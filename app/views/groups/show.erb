@@ -1,0 +1,30 @@
+<%= erb :'/users/leftpanel' %>
+<div class="main">
+  <h1><%= @group.groupname %></h1>
+
+  <% if @user.groups.include?(@group) %>
+
+  <h2>Users</h2>
+  <ul>
+    <% @group.users.each do |user| %>
+      <li><%= user.username %></li>
+    <% end %>
+  </ul>
+
+  <%= erb :'/messages/show' %>
+
+  <form method="post" action="/groups/<%= @group.id %>/delete">
+    <input id="hidden" type="hidden" name="_method" value="delete">
+    <input type="submit" value="delete group" />
+  </form>
+
+  <form method="post" action="/groups/<%= @group.id %>/leave">
+    <input id="hidden" type="hidden" name="_method" value="patch" />
+    <input type="submit" value="leave group" />
+  </form>
+
+  <% else %>
+  <p>You do not belong to this group.
+    <a href="/groups/<%= @group.id %>/join">Click here to join.</a></p>
+  <% end %>
+</div>
