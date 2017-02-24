@@ -1,5 +1,8 @@
 <%= erb :'/users/leftpanel' %>
 <div class="main">
   <h1><%= @profile_user.username %></h1>
-
+<h2><%= @profile_user.username %>'s Groups</h2>
+<% @profile_user.groups.each do |group| %>
+<li><a href="/groups/<%= group.id %>"><%= group.groupname %></li>
+<% end %>
 </div>

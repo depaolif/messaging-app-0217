@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170223203815) do
+ActiveRecord::Schema.define(version: 20170224104835) do
 
   create_table "groups", force: :cascade do |t|
     t.string "groupname"
@@ -29,8 +29,10 @@ ActiveRecord::Schema.define(version: 20170223203815) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.string "password_digest"
+    t.string  "username"
+    t.string  "password_digest"
+    t.text    "bio"
+    t.integer "age"
   end
 
 end

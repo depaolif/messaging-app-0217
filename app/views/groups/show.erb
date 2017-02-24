@@ -7,7 +7,7 @@
 <div class="users">
   <div class="users-admin">
     <h2>Admin</h2>
-    <p><%= @group.get_admin.username %></p>
+    <p><a href="/users/<%= @group.get_admin.id %>"><%= @group.get_admin.username %></a></p>
   </div>
   <div class="users-members">
     <h2>Members</h2>
@@ -15,7 +15,7 @@
     <% @group.users.each do |user| %>
       <% if user.get_role(@group) == "Member" %>
       <li>
-        <%= user.username %>
+        <a href="/users/<%= user.id %>"><%= user.username %></a>
         <% if @role =="Admin" && (@user != user) %>
         <a href="/groups/<%= @group.id %>/user/<%= user.id %>/kick">boot</a>
         <% end %>
