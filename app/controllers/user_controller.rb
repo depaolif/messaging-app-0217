@@ -16,6 +16,7 @@ class UserController < ApplicationController
       @profile_user = User.find(params[:id].to_i)
       @profile_user_groups = @profile_user.groups
       @user = current_user
+      @not_in_groups = @user.not_in_groups
       erb :'users/show'
     else
       flash[:message]="Not logged in"
