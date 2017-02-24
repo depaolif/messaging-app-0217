@@ -52,35 +52,50 @@ class GroupController < ApplicationController
   end
 
   delete '/groups/:id/delete' do
-    group = Group.find(params[:id].to_i)
-    role=current_user.get_role(group)
-    if role != "Admin"
-      flash[:message]="You are not the administrator of this group"
-      redirect "/groups/#{group.id}"
+    if logged_in?
+      group = Group.find(params[:id].to_i)
+      role=current_user.get_role(group)
+      if role != "Admin"
+        flash[:message]="You are not the administrator of this group"
+        redirect "/groups/#{group.id}"
+      else
+        name=group.groupname
+        group.destroy
+        flash[:message]="#{name} was deleted!"
+        redirect '/users'
+      end
     else
-      name=group.groupname
-      group.destroy
-      flash[:message]="#{name} was deleted!"
-      redirect '/users'
+      flash[:message]="Not logged in"
+      redirect '/'
     end
   end
 
   get '/groups/:groupid/user/:userid/kick' do
-    user=User.find(params[:userid].to_i)
-    group=Group.find(params[:groupid].to_i)
-    user.set_role("Kicked", group)
-    group.messages.create(themessage: "#{user.username} was kicked out of the group", user: current_user)
-    flash[:message] = "#{user.username} was successfully kicked from #{group.groupname}"
-    redirect "/groups/#{group.id}"
+    if logged_in?
+      user=User.find(params[:userid].to_i)
+      group=Group.find(params[:groupid].to_i)
+      user.set_role("Kicked", group)
+      group.messages.create(themessage: "#{user.username} was kicked out of the group", user: current_user)
+      flash[:message] = "#{user.username} was successfully kicked from #{group.groupname}"
+      redirect "/groups/#{group.id}"
+    else
+      flash[:message]="Not logged in"
+      redirect '/'
+    end
   end
 
   get '/groups/:groupid/user/:userid/reinstate' do
-    user=User.find(params[:userid].to_i)
-    group=Group.find(params[:groupid].to_i)
-    user.set_role("Member", group)
-    group.messages.create(themessage: "#{user.username} was invited back", user: current_user)
-    flash[:message] = "#{user.username} was invited back to #{group.groupname}"
-    redirect "/groups/#{group.id}"
+    if logged_in?
+      user=User.find(params[:userid].to_i)
+      group=Group.find(params[:groupid].to_i)
+      user.set_role("Member", group)
+      group.messages.create(themessage: "#{user.username} was invited back", user: current_user)
+      flash[:message] = "#{user.username} was invited back to #{group.groupname}"
+      redirect "/groups/#{group.id}"
+    else
+      flash[:message]="Not logged in"
+      redirect '/'
+    end
   end
 
   patch '/groups/:id/leave' do

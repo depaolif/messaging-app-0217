@@ -1,8 +1,20 @@
 <%= erb :'/users/leftpanel' %>
 <div class="main">
   <h1><%= @profile_user.username %></h1>
+  <p>Age: <%= @profile_user.age %></p>
+  <p><%= @profile_user.bio %></p>
 <h2><%= @profile_user.username %>'s Groups</h2>
 <% @profile_user.groups.each do |group| %>
-<li><a href="/groups/<%= group.id %>"><%= group.groupname %></li>
+<li><a href="/groups/<%= group.id %>"><%= group.groupname %></a></li>
+<% end %>
+
+<% if @profile_user == current_user %>
+<h2>Update Profile</h2>
+<form method="post" action="/users/<%= @profile_user.id %>">
+  <input type="hidden" id="hidden" name="_method" value="patch" />
+  <p>Bio: <input type="text" name="bio" placeholder="<%= @profile_user.bio %>"/></p>
+  <p>Age: <input type="text" name="age" placeholder="<%= @profile_user.age %>"/></p>
+  <input type="submit" value="update profile" />
+</form>
 <% end %>
 </div>

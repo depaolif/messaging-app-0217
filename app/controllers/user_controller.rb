@@ -22,4 +22,15 @@ class UserController < ApplicationController
       redirect '/'
     end
   end
+
+  patch '/users/:id' do
+    if logged_in?
+      User.update(bio: params[:bio],age: params[:age])
+      flash[:message]="Profile updated!"
+      redirect "/users/#{current_user.id}"
+    else
+      flash[:message]="Not logged in"
+      redirect '/'
+    end
+  end
 end
